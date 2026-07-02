@@ -1,4 +1,10 @@
 //checking login
+//odd or even
+//calculator using switch cases
+
+
+
+//checking login
 import java.util.Scanner;
 public class Main {
   public static void main(String[] args) {
