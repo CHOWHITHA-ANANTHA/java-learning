@@ -1,11 +1,12 @@
 
-//class, objects, constructors
+//class, objects, constructors, local vs gloabal variables
 class hosp{         //class
-    String dname;
+    String dname;           //global variable cz its in class, not in fn so it can be used in the entire programme
     String name;
     public hosp(String dname, String name){         //method....dname, name are objects
         this.dname = dname;             //objects, constructors
-        this.name = name;
+        this.name = name;   //to use the variable in the next classes, we'll use the keyword "this"
+        int id = 100; //local variable
     }
 }
 public class Main{
