@@ -72,6 +72,18 @@ class CurrentAccount extends BankAccount {
             System.out.println("Transaction Denied: Overdraft limit exceeded.");
         }
     }
+
+    class AutopaySystem {
+    public static void processBills(BankAccount account, List<Double> bills) {
+        System.out.println("\n--- Processing Autopay ---");
+        
+        for (int i = 0; i < bills.size(); i++) {
+            double billAmount = bills.get(i);
+            System.out.println("Attempting to pay bill #" + (i + 1) + " of $" + billAmount);
+            account.withdraw(billAmount);
+        }
+    }
+}
 }
 
 // 4. Execution Class simulating the ATM/Banking platform
@@ -91,111 +103,3 @@ public class BankingSystem {
         customerCurrent.displayBalance();
     }
 }
-
-/*
-import java.util.ArrayList;
-import java.util.List;
-
-abstract class BankAccount { 
-    protected String accountNumber; 
-    protected double balance; 
-
-    public BankAccount(String accountNumber, double initialBalance) { 
-        this.accountNumber = accountNumber; 
-        this.balance = initialBalance; 
-    } 
-
-    public void displayBalance() { 
-        System.out.println("Account: " + accountNumber + " | Current Balance: $" + balance); 
-    } 
-
-    public abstract void deposit(double amount); 
-    public abstract void withdraw(double amount); 
-} 
-
-
-class SavingsAccount extends BankAccount { 
-    private static final double MINIMUM_BALANCE = 800.00; 
-
-    public SavingsAccount(String accountNumber, double initialBalance) { 
-        super(accountNumber, initialBalance); 
-    } 
-
-    @Override 
-    public void deposit(double amount) { 
-        balance += amount; 
-        System.out.println("Deposited $" + amount + " to Savings Account."); 
-    } 
-
-    @Override 
-    public void withdraw(double amount) { 
-        if ((balance - amount) >= MINIMUM_BALANCE) { 
-            balance -= amount; 
-            System.out.println("Withdrew $" + amount + " from Savings Account."); 
-        } else { 
-            System.out.println("Transaction Denied: Savings accounts must maintain a $" + MINIMUM_BALANCE + " minimum balance."); 
-        } 
-    } 
-} 
-
-class CurrentAccount extends BankAccount { 
-    private double overdraftLimit = 100.00; 
-
-    public CurrentAccount(String accountNumber, double initialBalance) { 
-        super(accountNumber, initialBalance); 
-    } 
-
-    @Override 
-    public void deposit(double amount) { 
-        balance += amount; 
-        System.out.println("Deposited $" + amount + " to Current Account."); 
-    } 
-
-    @Override 
-    public void withdraw(double amount) { 
-        if ((balance + overdraftLimit) >= amount) { 
-            balance -= amount; 
-            System.out.println("Withdrew $" + amount + " from Current Account."); 
-        } else { 
-            System.out.println("Transaction Denied: Overdraft limit exceeded."); 
-        } 
-    } 
-} 
-
-class AutopaySystem {
-    public static void processBills(BankAccount account, List<Double> bills) {
-        System.out.println("\n--- Processing Autopay ---");
-        
-        for (int i = 0; i < bills.size(); i++) {
-            double billAmount = bills.get(i);
-            System.out.println("Attempting to pay bill #" + (i + 1) + " of $" + billAmount);
-            account.withdraw(billAmount);
-        }
-    }
-}
-
-public class Main { 
-    public static void main(String[] args) { 
-        BankAccount customerSavings = new SavingsAccount("SAV-9876", 150.00); 
-        BankAccount customerCurrent = new CurrentAccount("CUR-1234", 200.00); 
-
-        System.out.println("--- Executing Savings Operations ---");
-        customerSavings.displayBalance(); 
-        customerSavings.withdraw(100.00);
-
-        System.out.println("\n--- Executing Current Operations ---");
-        customerCurrent.displayBalance(); 
-        customerCurrent.withdraw(400.00); 
-        customerCurrent.displayBalance(); 
-        List<Double> monthlyBills = new ArrayList<>();
-        monthlyBills.add(50.00);
-        monthlyBills.add(30.00);
-        monthlyBills.add(70.00);
-
-        AutopaySystem.processBills(customerCurrent, monthlyBills);
-        
-        System.out.println("\n--- Final Balance ---");
-        customerCurrent.displayBalance();
-    } 
-}
-*/
