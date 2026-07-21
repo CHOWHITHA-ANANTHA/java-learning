@@ -132,3 +132,68 @@ public class Main {
         scanner.close();
     }
 }
+
+
+
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    public static void findMissingNumbers(Stack<Integer> stack) {
+        if (stack.isEmpty()) {
+            System.out.println("The stack is empty. No range to calculate.");
+            return;
+        }
+
+        // Use a Set for O(1) lookups and find the min/max values
+        HashSet<Integer> presentNumbers = new HashSet<>();
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        // Read all elements from the stack without destroying it
+        for (int num : stack) {
+            presentNumbers.add(num);
+            if (num < min) min = num;
+            if (num > max) max = num;
+        }
+
+        System.out.println("\n--- Results ---");
+        System.out.println("Range detected: From " + min + " to " + max);
+        System.out.print("Missing numbers: ");
+
+        boolean hasMissing = false;
+        // Check every number in the range from min to max
+        for (int i = min; i <= max; i++) {
+            if (!presentNumbers.contains(i)) {
+                System.out.print(i + " ");
+                hasMissing = true;
+            }
+        }
+
+        if (!hasMissing) {
+            System.out.print("None! All numbers in the range are present.");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Stack<Integer> myStack = new Stack<>();
+
+        System.out.println("Enter numbers for the stack (type any letter or 'done' to stop):");
+
+        // Read dynamic user input
+        while (scanner.hasNextInt()) {
+            myStack.push(scanner.nextInt());
+        }
+
+        System.out.println("\nOriginal Stack: " + myStack);
+
+        // Find and print the missing elements
+        findMissingNumbers(myStack);
+
+        scanner.close();
+    }
+}
