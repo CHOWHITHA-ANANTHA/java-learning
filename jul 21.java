@@ -83,3 +83,52 @@ public class Main {
     }
 }
 
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    public static void shiftZerosToBottom(Stack<Integer> stack) {
+        Stack<Integer> nonZeros = new Stack<>();
+        int zeroCount = 0;
+
+        // Step 1: Separate zeros from non-zeros
+        while (!stack.isEmpty()) {
+            int current = stack.pop();
+            if (current == 0) {
+                zeroCount++;
+            } else {
+                nonZeros.push(current);
+            }
+        }
+
+        // Step 2: Push zeros first (they will go to the bottom)
+        for (int i = 0; i < zeroCount; i++) {
+            stack.push(0);
+        }
+
+        // Step 3: Put non-zeros back to restore their original order
+        while (!nonZeros.isEmpty()) {
+            stack.push(nonZeros.pop());
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Stack<Integer> myStack = new Stack<>();
+
+        System.out.println("Enter numbers one by one (type any letter or 'done' to stop):");
+
+        // Read dynamic user input
+        while (scanner.hasNextInt()) {
+            myStack.push(scanner.nextInt());
+        }
+
+        System.out.println("\nOriginal Stack: " + myStack);
+
+        shiftZerosToBottom(myStack);
+
+        System.out.println("Zeros at Bottom: " + myStack);
+
+        scanner.close();
+    }
+}
